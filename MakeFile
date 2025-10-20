@@ -1,0 +1,17 @@
+__dir_path = _build/
+
+.d.python:
+.PHONY .d.python
+
+
+
+#build the dependancies
+#downloading python
+#downloading uv
+#making the venv
+
+#running the linter
+
+#running the testcases 
+
+#do some kind of update to indiciate make was actually ran

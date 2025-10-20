@@ -1,0 +1,21 @@
+name: "Setup Python environment"
+description: "Set up Python 3.x and sync deps via uv with cache"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install uv with caching
+      uses: astral-sh/setup-uv@v6
+      with:
+        enable-cache: true
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: "pyproject.toml"
+
+    - name: Install dependencies
+      env: 
+        UV_PROJECT_ENVIRONMENT:/usr/local
+      run: uv sync --locked --all-extras --dev
+      shell: bash
