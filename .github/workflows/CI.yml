@@ -11,20 +11,19 @@ permissions:
   contents: read
 
 jobs:
-  lint:
-    name: lint code
+  Lint:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v5
-      - name: run linter
+      - name: Make Check
         run: make check
         
-  test:
+  Test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run tests
+      - name: Make Test
         run: |
           mkdir -p _build/junit
           make test
