@@ -7,6 +7,7 @@ uv_cache = $(__cache_dir)/uv
 uv_config = $(__uv_dir)/bin/config
 venv = $(__python_dir)/tmp/venv
 py = $(venv)/bin/python3
+UV = $(__uv_dir)/bin/uv
 
 PYTHON_VERSION = 3.13 #change this if needed 
 
@@ -23,13 +24,14 @@ $(uv_config): | $(uv_cache)
 	mkdir -p $(__python_dir)
 	curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=$(__uv_dir)/bin/ UV_NO_MODIFY_PATH=1 sh
 	echo "cache-dir = \"$(realpath $(uv_cache))\"" > $@
-	export UV_CONFIG_FILE=$@ && uv python install $(PYTHON_VERSION) 
+	touch $(UV)
+	export UV_CONFIG_FILE=$@ && $(UV) python install $(PYTHON_VERSION) 
 	
 $(uv_cache):
 	mkdir -p $@
 
 $(venv)/.created: 
-	uv venv $(venv)
+	$(UV) venv $(venv)
 	touch $@
 	touch $(py)
 
