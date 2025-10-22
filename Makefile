@@ -37,7 +37,7 @@ $(venv)/.created:
 
 deps: |.d.uv $(venv)/.created
 	$(eval VFLAG := $(if $(filter $(VERBOSE),1),--verbose,))
-	export UV_PROJECT_ENVIRONMENT=$(venv) && uv sync
+	export UV_PROJECT_ENVIRONMENT=$(venv) && $(UV) sync
 .PHONY: deps
 
 check: |deps clean
