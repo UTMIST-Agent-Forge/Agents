@@ -3,9 +3,9 @@ requires = ["setuptools",]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "src"
+name = "Agents"
 version = "0.0.1"
-description = "no code agents"
+description = "No Code Agent Builder Microservice"
 readme = "README.md"
 requires-python = ">=3.13,<3.14" #pyarrow doesn't have 3.14 support
 keywords = []
