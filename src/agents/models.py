@@ -1,10 +1,15 @@
+#TODO add docstrings
+
 from typing import Any, TypedDict
-from langchain.messages import BaseMessage
+
+from langchain.messages import HumanMessage, SystemMessage, AIMessage
+from langchain.chat_models import init_chat_model
 
 
 class State(TypedDict):
     '''
     '''
+    #TODO define state structure
 
 
 class Memory:
@@ -67,23 +72,31 @@ class LLM:
     '''
     '''
 
-    def __init__(self, id: str, model: str, provider: str, config: dict[str, Any] | list[Any] | str | int | float | bool, structured_output: dict[str, Any] | list[Any] | str | int | float | bool | None, include_history: bool):
+    def __init__(self, id: str, model: str, config: dict[str, Any] | list[Any] | str | int | float | bool, structured_output: dict[str, Any] | list[Any] | str | int | float | bool | None, include_history: bool):
         '''
         '''
         self.id = id
-        self.model = model
-        self.provider = provider
+        self.model = model 
         self.config = config
         self.structured_output = structured_output
         self.include_history = include_history
+        #TODO add api key
+        self.llm_model = init_chat_model(model=model, api_key="")
 
-    def ainvoke(msgs: State) -> str:
+    def ainvoke(self, msgs: State) -> str:
         '''
         '''
+        return self.llm_model.invoke(msgs.)
 
-    def astream(msgs: State) -> Any:
+    def astream(self, msgs: State) -> Any:
         '''
         '''
+        for chunk in self.llm_model.stream(
+            {"messages": msgs.}
+            stream_mode = "messages"
+        ):
+            yield chunk
+        
 
 
 class LLM_Node(Node):
@@ -94,7 +107,16 @@ class LLM_Node(Node):
         '''
         '''
         super().__init__(start=False, finish=False, leader=False, id=id, node_type="LLM", is_subgraph=False, is_checkpoint=False, is_streaming=False, name="", out_neighbours=[], self_connection=None, has_error_handlng=False, layer=0, independent_memory=False)
-        self.llm_object = LLM(id, model, provider, config, structured_output, include_history)
+        self.llm_object = LLM(id=id, model=model, config=config, structured_output=structured_output, include_history=include_history)
         self.use_long_term_memory = use_long_term_memory
         self.system_prompt = system_prompt
         self.memory_type = memory_type
+
+
+# questions:
+# why is provider necessary for LLM?
+# why arent the params for LLM functions just state
+# did i miss anything in the state object? 
+# are we just having one catch-all state object?
+# how to make vscode recognize dependencies?
+# are invoke and stream supposed to be async functions?
