@@ -22,4 +22,19 @@ dependencies = [
     "pytest-timeout",
     "isort",
     "langchain",
+    "langchain_openai", 
+    "langchain_anthropic",
+    "python-dotenv",
+    "aiolimiter"
 ]
+
+[project.optional-dependencies]
+gpu_specifics = [
+    "vllm"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

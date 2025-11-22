@@ -40,6 +40,11 @@ deps: |.d.uv $(venv)/.created
 	export UV_PROJECT_ENVIRONMENT=$(venv) && $(UV) sync
 .PHONY: deps
 
+deps_gpu: |.d.uv $(venv)/.created
+	$(eval VFLAG := $(if $(filter $(VERBOSE),1),--verbose,))
+	export UV_PROJECT_ENVIRONMENT=$(venv) && $(UV) sync $(gpu_specifics)
+.PHONY: deps_gpu
+
 check: |deps clean
 	$(py) -m flake8 src tests --count --select=E9,F63,F7,F82 --show-source --statistics; 
 	$(py) -m flake8 src tests --count --max-complexity=10 --max-line-length=127 --statistics; 
