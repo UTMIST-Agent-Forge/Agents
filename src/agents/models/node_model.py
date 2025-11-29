@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 from src.agents.config import State
+from src.models.memory import Memory
 
 
 class Node(ABC):
