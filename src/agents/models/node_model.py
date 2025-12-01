@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 from typing import Any
-from src.agents.config import State
+from agents.configs.llm_config import State
 
 
 class Node(ABC):
     '''
     '''
 
-    def __init__(self, start: bool, finish: bool, leader: bool, id: str, node_type: str, is_subgraph: bool, is_checkpoint: bool, is_streaming: bool, name: str, out_neighbours: list[str], self_connection: dict[str, Any] | list[Any] | str | int | float | bool | None, has_error_handlng: bool, layer: int, independent_memory: bool) -> None:
+    def __init__(self, start: bool, finish: bool, leader: bool, id: str, node_type: str, is_subgraph: bool, is_checkpoint: bool, is_streaming: bool, name: str, out_neighbours: list[str], self_connection: dict[str, Any] | list[Any] | str | int | float | bool | None, has_error_handling: bool, layer: int, independent_memory: bool) -> None:
         '''
         '''
         self.start = start
@@ -21,7 +21,7 @@ class Node(ABC):
         self.name = name
         self.out_neighbours = out_neighbours
         self.self_connection = self_connection
-        self.has_error_handlng = has_error_handlng
+        self.has_error_handling = has_error_handling
         self.layer = layer
         self.independent_memory = independent_memory
 
@@ -38,7 +38,7 @@ class Node(ABC):
         '''
 
     @abstractmethod
-    def execute(self, state: State) -> State:
+    def execute(self, state: State) -> Any:
         '''
         Execute the node
         '''
@@ -50,7 +50,7 @@ class Node(ABC):
         '''
 
     @abstractmethod
-    def save_to_memory(self, memory: Memory, state: State, save_long_term: bool) -> None:
+    def save_to_memory(self, memory, state: State, save_long_term: bool) -> None:
         '''
         Save the state to memory
         '''
