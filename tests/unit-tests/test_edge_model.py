@@ -1,6 +1,6 @@
 import pytest 
 from langgraph.graph import StateGraph, START, END
-from agents.models.edge_model import create_conditional_edges, create_parallel_edge
+from agents.models.edge_model import create_conditional_edges, create_parallel_edges
 from agents.models.tool_node_model import Tool_Node
 from agents.configs.llm_config import State, Message, Role
 
@@ -16,6 +16,14 @@ def f1(state: State) -> int:
 
 def f2(state: State) -> str:
     return "f1"
+
+
+def f3(state: State) -> int:
+    return {
+        "other_state_attr" : state["other_state_attr"] + [Message(content="vincent", role=Role.ASSISTANT)] 
+        if "other_state_attr" in state else 
+        [Message(content="vincent", role=Role.ASSISTANT)]
+    }
 
 
 def graph_signature(g: StateGraph) -> dict[set, dict[str, str]]:
@@ -40,8 +48,10 @@ def test_create_parallel_edge_mutation():
     state_graph = StateGraph(State)
     state_graph.add_node("f1", f1)
     state_graph.add_edge("f1", END)
+    state_graph.add_node("f3", f3)
+    state_graph.add_edge("f3", END)
 
-    create_parallel_edge(state_graph, START, "f1")
+    create_parallel_edges(state_graph, START, ["f1", "f3"])
 
     compiled_graph = state_graph.compile()
     result = compiled_graph.invoke(State())
