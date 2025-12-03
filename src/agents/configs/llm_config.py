@@ -51,7 +51,15 @@ class State(TypedDict):
     '''
     '''
     messages: list[Message]
-    
-    
-    
-    
+
+
+class LLMConfig(BaseModel):
+    model: str
+    provider: str
+    temperature: float
+    max_tokens: int
+    top_p: float
+    stream: bool | None = None,
+    stop: str | list[str] | None = None,
+    structured_output: StructuredOutput | None = None,
+    tool_calls: ToolCalls | None = None,

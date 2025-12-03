@@ -12,7 +12,7 @@ keywords = []
 authors = []
 
 dependencies = [
-    "black", 
+    "black",
     "flake8",
     "pytest",
     "pytest-asyncio",
@@ -22,10 +22,12 @@ dependencies = [
     "pytest-timeout",
     "isort",
     "langchain",
-    "langchain_openai", 
+    "langchain_openai",
     "langchain_anthropic",
     "python-dotenv",
-    "aiolimiter"
+    "aiolimiter",
+    "langgraph>=1.0.2",
+    "ipython>=9.7.0",
 ]
 
 [project.optional-dependencies]
