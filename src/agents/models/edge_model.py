@@ -9,7 +9,7 @@ def create_parallel_edge(state_graph: StateGraph, start_node: str | Any, end_nod
     Create a parallel edge between two nodes in the state graph
     '''
 
-    state_graph.add_edge(start_node, end_node)
+    state_graph.add_edge(start_node, end_node) 
 
 
 def create_conditional_edges(state_graph: StateGraph, start_node: str | Any, routing_node: Node) -> None:
@@ -17,4 +17,4 @@ def create_conditional_edges(state_graph: StateGraph, start_node: str | Any, rou
     Create conditional edges between multiple nodes in the state graph
     '''
 
-    state_graph.add_conditional_edges(start_node, routing_node.execute)
+    state_graph.add_conditional_edges(start_node, routing_node.execute) #routing_node.execute should return which node to call next as a string
