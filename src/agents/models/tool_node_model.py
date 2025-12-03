@@ -22,12 +22,6 @@ class Tool_Node(Node):
         self.tool_args = tool_args
         self.tool_func = tool_func
 
-    def update(self) -> None:
-        '''
-        Update the values within node
-        '''
-        pass
-
     def get_metadata(self) -> dict:
         '''
         Get metadata for node
