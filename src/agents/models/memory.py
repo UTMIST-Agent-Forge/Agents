@@ -12,12 +12,12 @@ class Memory:
     '''
     Memory class for managing short-term and long-term memory operations
     '''
-    
+
     def __init__(
         self,
         checkpoints: dict[str, Any] | None = None,
         checkpoint_config: dict[str, Any] | None = None,
-        subgraphs_list: list[str] | None = None,
+        subgraphs: list[str] | None = None,
         short_term_memory: dict[str, Any] | None = None,
         long_term_memory: InStoreMemory | None = None,
         db_key: str | None = None,  # secret_str
@@ -29,7 +29,7 @@ class Memory:
         '''
         self.checkpoints = checkpoints or {}
         self.checkpoint_config = checkpoint_config or {}
-        self.subgraphs_list = subgraphs_list or []
+        self.subgraphs = subgraphs or []
         self.short_term_memory = short_term_memory or {}
         self.long_term_memory = long_term_memory
         self.db_key = db_key
@@ -42,43 +42,43 @@ class Memory:
         '''
         pass
 
-    def read_from_long_term(self, key: str) -> None:
+    def read_from_long_term(self, keys: tuple[str, ...]) -> None:
         '''
         Read data from long-term memory
         '''
         pass
 
-    def semantic_search_from_long_term(self, key: str, query: str, k: int) -> None:
+    def semantic_search_from_long_term(self, keys: tuple[str, ...], query: str, k: int) -> None:
         '''
         Perform semantic search in long-term memory
         '''
         pass
 
-    def trim(self, key: str, trim_kwargs: dict[str, Any]) -> None:
+    def trim(self, keys: tuple[str, ...], trim_kwargs: dict[str, Any]) -> None:
         '''
         Trim memory entries
         '''
         pass
 
-    def delete(self, key: str) -> None:
+    def delete(self, keys: tuple[str, ...]) -> None:
         '''
         Delete memory entries
         '''
         pass
 
-    def summarize(self, key: str) -> None:
+    def summarize(self, keys: tuple[str, ...]) -> None:
         '''
         Summarize memory entries
         '''
         pass
 
-    def write_to_short_term(self, key: str, text: str) -> None:
+    def write_to_short_term(self, key: tuple[str, ...], text: str) -> None:
         '''
         Write data to short-term memory
         '''
         pass
 
-    def inject_context(self, key: str, text: str) -> None:
+    def inject_context(self, key: tuple[str, ...], text: str) -> None:
         '''
         Inject context into memory
         '''
